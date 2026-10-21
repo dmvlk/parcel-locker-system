@@ -1,0 +1,74 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 8 0;
+}
+
+.user-label {
+    -fx-font-weight: bold;
+}
+
+.hint-label {
+    -fx-text-fill: #666;
+    -fx-font-size: 11px;
+}
+
+.toolbar {
+    -fx-background-color: #f2f4f8;
+    -fx-border-color: #d0d4dc;
+    -fx-border-width: 0 0 1 0;
+}
+
+.primary-button {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+}
+
+.primary-button:hover {
+    -fx-background-color: #276b2b;
+}
+
+.danger-button {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+}
+
+.danger-button:hover {
+    -fx-background-color: #a61f1f;
+}
+
+.error-label {
+    -fx-text-fill: #b00020;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header {
+    -fx-background-color: #e3e7ee;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #cfe8d4;
+}
+
+.dialog-root {
+    -fx-background-color: #ffffff;
+}
+
+.login-root {
+    -fx-background-color: #f4f6fa;
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 20, 0, 0, 4);
+    -fx-min-width: 360;
+}

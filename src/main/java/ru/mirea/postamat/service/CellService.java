@@ -9,17 +9,13 @@ import ru.mirea.postamat.repository.CellRepo;
 import java.util.List;
 
 public class CellService {
-
     private final CellRepo cell_repo;
-
     public CellService(CellRepo cell_repo) {
         this.cell_repo = cell_repo;
     }
-
     public List<Cell> get_all() {
         return cell_repo.get_all();
     }
-
     public Cell get_by_id(int id) {
         Cell cell = cell_repo.get_by_id(id);
         if (cell == null) {
@@ -28,24 +24,18 @@ public class CellService {
         return cell;
     }
 
-    public void create(String locker_address, int cell_number,
-                       SizeType size_type, CellStatus status) {
+    public void create(String locker_address, int cell_number, SizeType size_type, CellStatus status) {
 
-        // Правило: адрес не может быть пустым
-        if (locker_address == null || locker_address.trim().isEmpty()) {
+        if (locker_address == null || locker_address.trim().isEmpty())
             throw new BusinessException("Адрес постамата не может быть пустым");
-        }
 
         Cell cell = new Cell(locker_address.trim(), cell_number, size_type, status);
         cell_repo.save(cell);
     }
 
-    public void update(int id, String locker_address, int cell_number,
-                       SizeType size_type, CellStatus status) {
-
-        if (locker_address == null || locker_address.trim().isEmpty()) {
+    public void update(int id, String locker_address, int cell_number, SizeType size_type, CellStatus status) {
+        if (locker_address == null || locker_address.trim().isEmpty())
             throw new BusinessException("Адрес постамата не может быть пустым");
-        }
 
         Cell cell = get_by_id(id);
 

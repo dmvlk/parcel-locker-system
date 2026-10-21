@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.mirea.postamat.fx.UserDialogController"
+      spacing="10" styleClass="dialog-root" prefWidth="380">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <Label text="Пользователь" styleClass="title"/>
+
+    <Label text="ФИО"/>
+    <TextField fx:id="fullNameField" promptText="Иванов Иван"/>
+
+    <Label text="Телефон"/>
+    <TextField fx:id="phoneField" promptText="+79001234567"/>
+
+    <Label text="Email (необязательно)"/>
+    <TextField fx:id="emailField" promptText="user@example.com"/>
+
+    <Label text="Пароль"/>
+    <PasswordField fx:id="passwordField"/>
+    <Label fx:id="passwordHint" styleClass="hint-label"/>
+
+    <Label text="Роль"/>
+    <ComboBox fx:id="roleBox" maxWidth="Infinity"/>
+
+    <Label fx:id="errorLabel" styleClass="error-label" wrapText="true"/>
+
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button text="Отмена" onAction="#onCancel"/>
+        <Button text="Сохранить" onAction="#onSave" styleClass="primary-button"/>
+    </HBox>
+</VBox>

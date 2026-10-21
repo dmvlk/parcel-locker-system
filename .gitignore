@@ -11,4 +11,5 @@ Thumbs.db
 *.xlsx
 .env
 load.py
+*.py
 code.txt

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="ru.mirea.postamat.fx.LoginController"
+           styleClass="login-root">
+
+    <VBox fx:id="loginForm" spacing="10"
+          maxWidth="360" maxHeight="300"
+          styleClass="login-card"
+          alignment="TOP_LEFT">
+        <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+        <Label text="Вход в систему постаматов"
+               styleClass="title"
+               maxWidth="Infinity"
+               alignment="CENTER"/>
+
+        <Label text="Телефон" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+        <TextField fx:id="phoneField" promptText="+79123456789" maxWidth="Infinity"/>
+
+        <Label text="Пароль" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+        <PasswordField fx:id="passwordField" promptText="Пароль" maxWidth="Infinity"/>
+
+        <Button fx:id="loginButton" text="Войти" onAction="#onLogin"
+                maxWidth="Infinity" styleClass="primary-button"/>
+
+        <Label fx:id="errorLabel" styleClass="error-label" wrapText="true"/>
+    </VBox>
+</StackPane>

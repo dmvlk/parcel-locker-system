@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.mirea.postamat.fx.ParcelDialogController"
+      spacing="10" styleClass="dialog-root" prefWidth="420">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <Label text="Посылка" styleClass="title"/>
+    <VBox fx:id="sendForm" spacing="10">
+        <Label text="Телефон получателя"/>
+        <TextField fx:id="sendPhoneField" promptText="+79001234567"/>
+
+        <Label text="Адрес постамата"/>
+        <ComboBox fx:id="sendAddressBox" maxWidth="Infinity"/>
+
+        <Label text="Размер ячейки"/>
+        <ComboBox fx:id="sendSizeBox" maxWidth="Infinity"/>
+    </VBox>
+
+    <!-- ============ РЕЖИМ «CRUD» ============ -->
+    <VBox fx:id="editForm" spacing="10">
+        <Label text="Код получения"/>
+        <TextField fx:id="codeField" promptText="12345"/>
+
+        <Label text="Получатель"/>
+        <ComboBox fx:id="userBox" maxWidth="Infinity" promptText="Выберите пользователя"/>
+
+        <Label text="Ячейка"/>
+        <ComboBox fx:id="cellBox" maxWidth="Infinity" promptText="(необязательно)"/>
+        <Label fx:id="cellHint" styleClass="hint-label" wrapText="true"/>
+
+        <Label text="Статус"/>
+        <ComboBox fx:id="statusBox" maxWidth="Infinity"/>
+    </VBox>
+
+    <Label fx:id="errorLabel" styleClass="error-label" wrapText="true"/>
+
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button text="Отмена" onAction="#onCancel"/>
+        <Button text="Сохранить" onAction="#onSave" styleClass="primary-button"/>
+    </HBox>
+</VBox>

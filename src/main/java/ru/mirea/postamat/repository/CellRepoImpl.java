@@ -13,8 +13,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> get_all() {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells ORDER BY id";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells ORDER BY id";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -31,8 +30,7 @@ public class CellRepoImpl implements CellRepo {
 
     @Override
     public Cell get_by_id(int id) {
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells WHERE id = ?";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells WHERE id = ?";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -49,8 +47,7 @@ public class CellRepoImpl implements CellRepo {
 
     @Override
     public void save(Cell cell) {
-        String sql = "INSERT INTO cells (locker_address, cell_number, size_type, status) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO cells (locker_address, cell_number, size_type, status) " + "VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -74,12 +71,9 @@ public class CellRepoImpl implements CellRepo {
 
     @Override
     public void update(Cell cell) {
-        String sql = "UPDATE cells SET locker_address = ?, cell_number = ?, " +
-                "size_type = ?, status = ? WHERE id = ?";
-
+        String sql = "UPDATE cells SET locker_address = ?, cell_number = ?, " + "size_type = ?, status = ? WHERE id = ?";
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, cell.get_locker_address());
             ps.setInt(2, cell.get_cell_number());
             ps.setString(3, cell.get_size_type().name());
@@ -109,8 +103,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> get_by_address(String address) {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells WHERE locker_address LIKE ? ORDER BY id";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells WHERE locker_address LIKE ? ORDER BY id";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -146,8 +139,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> get_by_cell_number(int cell_number) {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells WHERE cell_number = ? ORDER BY id";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells WHERE cell_number = ? ORDER BY id";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -165,8 +157,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> filter_by_status(CellStatus status) {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells WHERE status = ? ORDER BY id";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells WHERE status = ? ORDER BY id";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -184,8 +175,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> filter_by_size(SizeType size) {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells WHERE size_type = ? ORDER BY id";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells WHERE size_type = ? ORDER BY id";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -203,8 +193,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> sort_by_address() {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells ORDER BY locker_address, cell_number";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells ORDER BY locker_address, cell_number";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -220,8 +209,7 @@ public class CellRepoImpl implements CellRepo {
     @Override
     public List<Cell> sort_by_cell_number() {
         List<Cell> cells = new ArrayList<>();
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells ORDER BY cell_number, locker_address";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells ORDER BY cell_number, locker_address";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -236,10 +224,7 @@ public class CellRepoImpl implements CellRepo {
 
     @Override
     public Cell find_free_cell(String locker_address, SizeType size) {
-        String sql = "SELECT id, locker_address, cell_number, size_type, status " +
-                "FROM cells " +
-                "WHERE locker_address = ? AND size_type = ? AND status = 'FREE' " +
-                "ORDER BY cell_number LIMIT 1";
+        String sql = "SELECT id, locker_address, cell_number, size_type, status " + "FROM cells " + "WHERE locker_address = ? AND size_type = ? AND status = 'FREE' " + "ORDER BY cell_number LIMIT 1";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {

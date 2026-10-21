@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.mirea.postamat.fx.CellDialogController"
+      spacing="10" styleClass="dialog-root" prefWidth="380">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <Label text="Ячейка" styleClass="title"/>
+
+    <Label text="Адрес постамата"/>
+    <TextField fx:id="addressField" promptText="ул. Первая, 12"/>
+
+    <Label text="Номер ячейки"/>
+    <TextField fx:id="numberField" promptText="1"/>
+
+    <Label text="Размер"/>
+    <ComboBox fx:id="sizeBox" maxWidth="Infinity"/>
+
+    <Label text="Статус"/>
+    <ComboBox fx:id="statusBox" maxWidth="Infinity"/>
+
+    <Label fx:id="errorLabel" styleClass="error-label" wrapText="true"/>
+
+    <HBox spacing="8" alignment="CENTER_RIGHT">
+        <Button text="Отмена" onAction="#onCancel"/>
+        <Button text="Сохранить" onAction="#onSave" styleClass="primary-button"/>
+    </HBox>
+</VBox>

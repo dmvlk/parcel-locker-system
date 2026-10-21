@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParcelRepoImpl implements ParcelRepo {
-
     @Override
     public List<Parcel> get_all() {
         List<Parcel> parcels = new ArrayList<>();
@@ -30,8 +29,7 @@ public class ParcelRepoImpl implements ParcelRepo {
 
     @Override
     public Parcel get_by_id(int id) {
-        String sql = "SELECT id, code, user_id, cell_id, status, created_at " +
-                "FROM parcels WHERE id = ?";
+        String sql = "SELECT id, code, user_id, cell_id, status, created_at " + "FROM parcels WHERE id = ?";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -48,8 +46,7 @@ public class ParcelRepoImpl implements ParcelRepo {
 
     @Override
     public void save(Parcel parcel) {
-        String sql = "INSERT INTO parcels (code, user_id, cell_id, status) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO parcels (code, user_id, cell_id, status) " + "VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -79,12 +76,10 @@ public class ParcelRepoImpl implements ParcelRepo {
 
     @Override
     public void update(Parcel parcel) {
-        String sql = "UPDATE parcels SET code = ?, user_id = ?, cell_id = ?, status = ? " +
-                "WHERE id = ?";
+        String sql = "UPDATE parcels SET code = ?, user_id = ?, cell_id = ?, status = ? " + "WHERE id = ?";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, parcel.get_code());
             ps.setInt(2, parcel.get_user_id());
 
@@ -106,7 +101,6 @@ public class ParcelRepoImpl implements ParcelRepo {
     @Override
     public void delete(int id) {
         String sql = "DELETE FROM parcels WHERE id = ?";
-
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -119,8 +113,7 @@ public class ParcelRepoImpl implements ParcelRepo {
 
     @Override
     public Parcel get_by_code(String code) {
-        String sql = "SELECT id, code, user_id, cell_id, status, created_at " +
-                "FROM parcels WHERE code = ?";
+        String sql = "SELECT id, code, user_id, cell_id, status, created_at " + "FROM parcels WHERE code = ?";
 
         try (Connection conn = Db.get_conn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
