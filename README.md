@@ -6,10 +6,8 @@
 - Кайзер Даниил Дмитриевич
 - Славгородский Сергей Романович
 
-## Инструкция запуска:
-Создать базу данных и заполнить тестовыми данными:
+## Запустить БД:
 ```bash
-psql -U postgres -c "CREATE DATABASE postamat_db;"
-psql -U postgres -d postamat_db -f db/schema.sql
+docker compose up --build -d
 ```
 Запустить файл Main.java

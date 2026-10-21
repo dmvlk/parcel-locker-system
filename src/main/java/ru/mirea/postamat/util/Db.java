@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Db {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postamat_db";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String URL = String.format("jdbc:postgresql://localhost:%s/%s",
+            System.getenv("DB_PORT"),
+            System.getenv("DB_NAME"));
+
+    private static final String USER = System.getenv("DB_USER");
+    private static final String PASSWORD = System.getenv("DB_PASS");
 
     private Db() {}
 

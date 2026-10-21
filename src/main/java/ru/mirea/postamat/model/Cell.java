@@ -10,16 +10,14 @@ public class Cell {
 
     public Cell() {}
 
-    public Cell(String locker_address, int cell_number,
-                SizeType size_type, CellStatus status) {
+    public Cell(String locker_address, int cell_number, SizeType size_type, CellStatus status) {
         this.locker_address = locker_address;
         this.cell_number = cell_number;
         this.size_type = size_type;
         this.status = status;
     }
 
-    public Cell(int id, String locker_address, int cell_number,
-                SizeType size_type, CellStatus status) {
+    public Cell(int id, String locker_address, int cell_number, SizeType size_type, CellStatus status) {
         this.id = id;
         this.locker_address = locker_address;
         this.cell_number = cell_number;

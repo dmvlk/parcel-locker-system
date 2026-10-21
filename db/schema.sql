@@ -39,16 +39,16 @@ INSERT INTO users (full_name, phone, email) VALUES
     ('Воронов Александр', '+79987654321', 'voronov@gmail.com'),
     ('Конев Максим', '+79001001010', 'konev@gmail.com');
 
-INSERT INTO cells (locker_address, cell_number, size_type, status, user_id) VALUES
-    ('ул. Первая, 12', 1, 'SMALL', 'FREE', NULL),
-    ('ул. Первая, 12', 2, 'MEDIUM', 'FREE', 1),
-    ('ул. Первая, 12', 3, 'MEDIUM', 'FREE', 2),
-    ('ул. Первая, 12', 4, 'LARGE', 'FREE', NULL),
-    ('ул. Пятая, 16', 1, 'SMALL', 'FREE', 3),
-    ('ул. Пятая, 16', 2, 'MEDIUM', 'FREE', NULL),
-    ('ул. Пятая, 16', 3, 'MEDIUM', 'NOT_WORKING', NULL),
-    ('ул. Пятая, 16', 4, 'LARGE', 'FREE', 4),
-    ('ул. Десятая, 10', 1, 'SMALL', 'FREE', 5),
-    ('ул. Десятая, 10', 2, 'MEDIUM', 'FREE', NULL),
-    ('ул. Десятая, 10', 3, 'MEDIUM', 'FREE', NULL),
-    ('ул. Десятая, 10', 4, 'LARGE', 'NOT_WORKING', NULL);
+INSERT INTO cells (locker_address, cell_number, size_type, status) VALUES
+    ('ул. Первая, 12', 1, 'SMALL', 'FREE'),
+    ('ул. Первая, 12', 2, 'MEDIUM', 'FREE'),
+    ('ул. Первая, 12', 3, 'MEDIUM', 'FREE'),
+    ('ул. Первая, 12', 4, 'LARGE', 'FREE'),
+    ('ул. Пятая, 16', 1, 'SMALL', 'FREE'),
+    ('ул. Пятая, 16', 2, 'MEDIUM', 'FREE'),
+    ('ул. Пятая, 16', 3, 'MEDIUM', 'NOT_WORKING'),
+    ('ул. Пятая, 16', 4, 'LARGE', 'FREE'),
+    ('ул. Десятая, 10', 1, 'SMALL', 'FREE'),
+    ('ул. Десятая, 10', 2, 'MEDIUM', 'FREE'),
+    ('ул. Десятая, 10', 3, 'MEDIUM', 'FREE'),
+    ('ул. Десятая, 10', 4, 'LARGE', 'NOT_WORKING');
