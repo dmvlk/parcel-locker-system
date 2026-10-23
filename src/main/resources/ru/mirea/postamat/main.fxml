@@ -9,7 +9,9 @@
 
     <top>
         <HBox spacing="12" alignment="CENTER_LEFT" styleClass="toolbar">
-            <padding><Insets top="10" right="12" bottom="10" left="12"/></padding>
+            <padding>
+                <Insets top="10" right="12" bottom="10" left="12"/>
+            </padding>
             <Label fx:id="userLabel" styleClass="user-label"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="Выйти" onAction="#onLogout" styleClass="danger-button"/>
@@ -20,83 +22,88 @@
         <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
             <Tab fx:id="cellsTab" text="Ячейки">
                 <VBox spacing="8">
-                    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
 
                     <HBox spacing="8">
                         <TextField fx:id="cellSearchField" promptText="Поиск по адресу" HBox.hgrow="ALWAYS"/>
                         <ComboBox fx:id="cellStatusFilter" promptText="Статус"/>
-                        <ComboBox fx:id="cellSizeFilter"   promptText="Размер"/>
-                        <ComboBox fx:id="cellSortBox"      promptText="Сортировка"/>
+                        <ComboBox fx:id="cellSizeFilter" promptText="Размер"/>
+                        <ComboBox fx:id="cellSortBox" promptText="Сортировка"/>
                         <Button text="Применить" onAction="#onCellSearch"/>
-                        <Button text="Сброс"     onAction="#onCellReset"/>
+                        <Button text="Сброс" onAction="#onCellReset"/>
                     </HBox>
 
                     <TableView fx:id="cellTable" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colCellId"      text="ID"     prefWidth="60"/>
-                            <TableColumn fx:id="colCellAddress" text="Адрес"  prefWidth="240"/>
-                            <TableColumn fx:id="colCellNumber"  text="Номер"  prefWidth="80"/>
-                            <TableColumn fx:id="colCellSize"    text="Размер" prefWidth="100"/>
-                            <TableColumn fx:id="colCellStatus"  text="Статус" prefWidth="120"/>
+                            <TableColumn fx:id="colCellId" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="colCellAddress" text="Адрес" prefWidth="240"/>
+                            <TableColumn fx:id="colCellNumber" text="Номер" prefWidth="80"/>
+                            <TableColumn fx:id="colCellSize" text="Размер" prefWidth="100"/>
+                            <TableColumn fx:id="colCellStatus" text="Статус" prefWidth="120"/>
                         </columns>
                     </TableView>
 
                     <HBox spacing="8">
-                        <Button fx:id="cellAddButton"    text="Добавить" onAction="#onAddCell"    styleClass="primary-button"/>
-                        <Button fx:id="cellEditButton"   text="Изменить" onAction="#onEditCell"/>
-                        <Button fx:id="cellDeleteButton" text="Удалить"  onAction="#onDeleteCell" styleClass="danger-button"/>
+                        <Button fx:id="cellAddButton" text="Добавить" onAction="#onAddCell" styleClass="primary-button"/>
+                        <Button fx:id="cellEditButton" text="Изменить" onAction="#onEditCell"/>
+                        <Button fx:id="cellDeleteButton" text="Удалить" onAction="#onDeleteCell" styleClass="danger-button"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <Button text="Экспорт XLSX" onAction="#onExportCellsXlsx"/>
-                        <Button text="Экспорт CSV"  onAction="#onExportCellsCsv"/>
+                        <Button text="Экспорт CSV" onAction="#onExportCellsCsv"/>
                     </HBox>
                 </VBox>
             </Tab>
             <Tab fx:id="usersTab" text="Пользователи">
                 <VBox spacing="8">
-                    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
 
                     <HBox spacing="8">
-                        <TextField fx:id="userSearchField" promptText="Поиск по телефону / ФИО"
-                                   HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="userSearchField" promptText="Поиск по телефону / ФИО" HBox.hgrow="ALWAYS"/>
                         <Button text="Найти" onAction="#onUserSearch"/>
                         <Button text="Сброс" onAction="#onUserReset"/>
                     </HBox>
 
                     <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colUserId"       text="ID"      prefWidth="60"/>
-                            <TableColumn fx:id="colUserFullName" text="ФИО"     prefWidth="260"/>
-                            <TableColumn fx:id="colUserPhone"    text="Телефон" prefWidth="160"/>
-                            <TableColumn fx:id="colUserEmail"    text="Email"   prefWidth="220"/>
-                            <TableColumn fx:id="colUserRole"     text="Роль"    prefWidth="100"/>
+                            <TableColumn fx:id="colUserId" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="colUserFullName" text="ФИО" prefWidth="260"/>
+                            <TableColumn fx:id="colUserPhone" text="Телефон" prefWidth="160"/>
+                            <TableColumn fx:id="colUserEmail" text="Email" prefWidth="220"/>
+                            <TableColumn fx:id="colUserRole" text="Роль" prefWidth="100"/>
                         </columns>
                     </TableView>
 
                     <HBox spacing="8">
-                        <Button fx:id="userAddButton"    text="Добавить" onAction="#onAddUser"    styleClass="primary-button"/>
-                        <Button fx:id="userEditButton"   text="Изменить" onAction="#onEditUser"/>
-                        <Button fx:id="userDeleteButton" text="Удалить"  onAction="#onDeleteUser" styleClass="danger-button"/>
+                        <Button fx:id="userAddButton" text="Добавить" onAction="#onAddUser" styleClass="primary-button"/>
+                        <Button fx:id="userEditButton" text="Изменить" onAction="#onEditUser"/>
+                        <Button fx:id="userDeleteButton" text="Удалить" onAction="#onDeleteUser" styleClass="danger-button"/>
+                        <Region HBox.hgrow="ALWAYS"/>
                     </HBox>
                 </VBox>
             </Tab>
             <Tab text="Посылки">
                 <VBox spacing="8">
-                    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
 
                     <TableView fx:id="parcelTable" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colParcelId"     text="ID"     prefWidth="60"/>
-                            <TableColumn fx:id="colParcelCode"   text="Код"    prefWidth="120"/>
+                            <TableColumn fx:id="colParcelId" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="colParcelCode" text="Код" prefWidth="120"/>
                             <TableColumn fx:id="colParcelUserId" text="UserID" prefWidth="80"/>
                             <TableColumn fx:id="colParcelCellId" text="CellID" prefWidth="80"/>
                             <TableColumn fx:id="colParcelStatus" text="Статус" prefWidth="120"/>
-                            <TableColumn fx:id="colParcelDate"   text="Дата"   prefWidth="180"/>
+                            <TableColumn fx:id="colParcelDate" text="Дата" prefWidth="180"/>
                         </columns>
                     </TableView>
 
                     <HBox spacing="8">
-                        <Button text="Отправить посылку" onAction="#onPutParcel"
-                                styleClass="primary-button"/>
+                        <Button text="Отправить посылку" onAction="#onPutParcel" styleClass="primary-button"/>
                         <Button text="Выдать по коду" onAction="#onTakeParcel"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <Button text="Обновить" onAction="#onRefreshParcels"/>
@@ -105,11 +112,12 @@
             </Tab>
             <Tab fx:id="statsTab" text="Статистика">
                 <VBox spacing="10">
-                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-                    <Label text="Сводные показатели" styleClass="title"/>
-                    <Button text="Рассчитать" onAction="#onStats" styleClass="primary-button"/>
-                    <TextArea fx:id="statsLabel" editable="false" wrapText="true"
-                              VBox.vgrow="ALWAYS" prefRowCount="18"/>
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Статистика" styleClass="title"/>
+                    <Button text="обновить" onAction="#onStats" styleClass="primary-button"/>
+                    <TextArea fx:id="statsLabel" editable="false" wrapText="true" VBox.vgrow="ALWAYS" prefRowCount="18"/>
                 </VBox>
             </Tab>
         </TabPane>
