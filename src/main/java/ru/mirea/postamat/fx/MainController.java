@@ -24,17 +24,17 @@ import java.util.List;
 
 public class MainController {
 
-    private final UserRepo   userRepo   = new UserRepoImpl();
-    private final CellRepo   cellRepo   = new CellRepoImpl();
+    private final UserRepo userRepo = new UserRepoImpl();
+    private final CellRepo cellRepo = new CellRepoImpl();
     private final ParcelRepo parcelRepo = new ParcelRepoImpl();
 
-    private final UserService   userService   = new UserService(userRepo);
-    private final CellService   cellService   = new CellService(cellRepo);
+    private final UserService userService = new UserService(userRepo);
+    private final CellService cellService = new CellService(cellRepo);
     private final ParcelService parcelService = new ParcelService(parcelRepo, cellRepo, userRepo);
-    private final StatsService  statsService  = new StatsService(userRepo, cellRepo, parcelRepo);
+    private final StatsService statsService = new StatsService(userRepo, cellRepo, parcelRepo);
 
-    private final ObservableList<Cell>   cellData   = FXCollections.observableArrayList();
-    private final ObservableList<User>   userData   = FXCollections.observableArrayList();
+    private final ObservableList<Cell> cellData = FXCollections.observableArrayList();
+    private final ObservableList<User> userData = FXCollections.observableArrayList();
     private final ObservableList<Parcel> parcelData = FXCollections.observableArrayList();
 
     @FXML private TabPane mainTabPane;
@@ -85,29 +85,29 @@ public class MainController {
     public void initialize() {
         if (Session.get() == null) { onLogout(); return; }
 
-        userLabel.setText("Пользователь: " + Session.get().get_full_name());
+        userLabel.setText("Пользователь: " + Session.get().getFullName());
 
         // Ячейки
-        colCellId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_id()));
-        colCellAddress.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_locker_address()));
-        colCellNumber.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_cell_number()));
-        colCellSize.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_size_type()));
-        colCellStatus.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_status()));
+        colCellId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
+        colCellAddress.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getLockerAddress()));
+        colCellNumber.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getCellNumber()));
+        colCellSize.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getSizeType()));
+        colCellStatus.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStatus()));
 
         // Пользователи
-        colUserId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_id()));
-        colUserFullName.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_full_name()));
-        colUserPhone.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_phone()));
-        colUserEmail.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_email() == null ? "" : c.getValue().get_email()));
-        colUserRole.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_role()));
+        colUserId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
+        colUserFullName.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFullName()));
+        colUserPhone.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getPhone()));
+        colUserEmail.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEmail() == null ? "" : c.getValue().getEmail()));
+        colUserRole.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getRole()));
 
         // Посылки
-        colParcelId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_id()));
-        colParcelCode.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_code()));
-        colParcelUserId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_user_id()));
-        colParcelCellId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_cell_id()));
-        colParcelStatus.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().get_status()));
-        colParcelDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get_created_at() == null ? "" : c.getValue().get_created_at().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        colParcelId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
+        colParcelCode.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCode()));
+        colParcelUserId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getUserId()));
+        colParcelCellId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getCellId()));
+        colParcelStatus.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStatus()));
+        colParcelDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCreatedAt() == null ? "" : c.getValue().getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
 
         cellTable.setItems(cellData);
         userTable.setItems(userData);
@@ -141,17 +141,17 @@ public class MainController {
         loadUsers();
         loadParcels();
     }
-    private void loadCells() { cellData.setAll(cellService.get_all()); }
-    private void loadUsers() { userData.setAll(userService.get_all()); }
+    private void loadCells() { cellData.setAll(cellService.getAll()); }
+    private void loadUsers() { userData.setAll(userService.getAll()); }
 
     private void loadParcels() {
-        List<Parcel> all = parcelRepo.get_all();
+        List<Parcel> all = parcelRepo.getAll();
         if (Session.isAdmin()) {
             parcelData.setAll(all);
         } else {
-            int myId = Session.get().get_id();
+            int myId = Session.get().getId();
             parcelData.setAll(all.stream()
-                    .filter(p -> p.get_user_id() == myId)
+                    .filter(p -> p.getUserId() == myId)
                     .toList());
         }
     }
@@ -163,24 +163,24 @@ public class MainController {
         SizeType sz = cellSizeFilter.getValue();
         String sort = cellSortBox.getValue();
 
-        List<Cell> result = cellService.get_all();
+        List<Cell> result = cellService.getAll();
 
         if (search != null && !search.isBlank())
             result = result.stream()
-                    .filter(c -> c.get_locker_address().toLowerCase()
+                    .filter(c -> c.getLockerAddress().toLowerCase()
                             .contains(search.toLowerCase().trim()))
                     .toList();
 
-        if (st != null) result = result.stream().filter(c -> c.get_status() == st).toList();
-        if (sz != null) result = result.stream().filter(c -> c.get_size_type() == sz).toList();
+        if (st != null) result = result.stream().filter(c -> c.getStatus() == st).toList();
+        if (sz != null) result = result.stream().filter(c -> c.getSizeType() == sz).toList();
 
         if ("По адресу".equals(sort))
             result = result.stream()
-                    .sorted((a, b) -> a.get_locker_address().compareTo(b.get_locker_address()))
+                    .sorted((a, b) -> a.getLockerAddress().compareTo(b.getLockerAddress()))
                     .toList();
         else if ("По номеру".equals(sort))
             result = result.stream()
-                    .sorted((a, b) -> Integer.compare(a.get_cell_number(), b.get_cell_number()))
+                    .sorted((a, b) -> Integer.compare(a.getCellNumber(), b.getCellNumber()))
                     .toList();
 
         cellData.setAll(result);
@@ -201,8 +201,8 @@ public class MainController {
         Cell editing = new Cell();
         if (openCellDialog(editing)) {
             try {
-                cellService.create(editing.get_locker_address(), editing.get_cell_number(),
-                        editing.get_size_type(), editing.get_status());
+                cellService.create(editing.getLockerAddress(), editing.getCellNumber(),
+                        editing.getSizeType(), editing.getStatus());
                 loadCells();
             } catch (Exception e) { showError(e.getMessage()); }
         }
@@ -214,12 +214,12 @@ public class MainController {
         Cell selected = cellTable.getSelectionModel().getSelectedItem();
         if (selected == null) { showError("Выберите ячейку"); return; }
 
-        Cell copy = new Cell(selected.get_id(), selected.get_locker_address(),
-                selected.get_cell_number(), selected.get_size_type(), selected.get_status());
+        Cell copy = new Cell(selected.getId(), selected.getLockerAddress(),
+                selected.getCellNumber(), selected.getSizeType(), selected.getStatus());
         if (openCellDialog(copy)) {
             try {
-                cellService.update(copy.get_id(), copy.get_locker_address(),
-                        copy.get_cell_number(), copy.get_size_type(), copy.get_status());
+                cellService.update(copy.getId(), copy.getLockerAddress(),
+                        copy.getCellNumber(), copy.getSizeType(), copy.getStatus());
                 loadCells();
             } catch (Exception e) { showError(e.getMessage()); }
         }
@@ -230,9 +230,9 @@ public class MainController {
         if (!Session.isAdmin()) { showError("Только администратор может удалять ячейки"); return; }
         Cell selected = cellTable.getSelectionModel().getSelectedItem();
         if (selected == null) { showError("Выберите ячейку"); return; }
-        if (!confirm("Удалить ячейку ID=" + selected.get_id() + "?")) return;
+        if (!confirm("Удалить ячейку ID=" + selected.getId() + "?")) return;
         try {
-            cellService.delete(selected.get_id());
+            cellService.delete(selected.getId());
             loadCells();
         } catch (Exception e) { showError(e.getMessage()); }
     }
@@ -273,7 +273,7 @@ public class MainController {
         User editing = new User();
         if (openUserDialog(editing, true)) {
             try {
-                userService.create(editing.get_full_name(), editing.get_phone(), editing.get_email(), editing.getPasswordHash(), editing.getRole());
+                userService.create(editing.getFullName(), editing.getPhone(), editing.getEmail(), editing.getPasswordHash(), editing.getRole());
                 loadUsers();
             } catch (Exception e) { showError(e.getMessage()); }
         }
@@ -285,12 +285,12 @@ public class MainController {
         User selected = userTable.getSelectionModel().getSelectedItem();
         if (selected == null) { showError("Выберите пользователя"); return; }
 
-        User copy = new User(selected.get_id(), selected.get_full_name(), selected.get_phone(), selected.get_email(), null, selected.getRole());
+        User copy = new User(selected.getId(), selected.getFullName(), selected.getPhone(), selected.getEmail(), null, selected.getRole());
 
         if (openUserDialog(copy, false)) {
             try {
                 String raw = copy.getPasswordHash();
-                userService.update(copy.get_id(), copy.get_full_name(), copy.get_phone(), copy.get_email(), (raw == null || raw.isBlank()) ? null : raw, copy.getRole());
+                userService.update(copy.getId(), copy.getFullName(), copy.getPhone(), copy.getEmail(), (raw == null || raw.isBlank()) ? null : raw, copy.getRole());
                 loadUsers();
             } catch (Exception e) { showError(e.getMessage()); }
         }
@@ -301,9 +301,9 @@ public class MainController {
         if (!Session.isAdmin()) { showError("Только администратор может удалять пользователей"); return; }
         User selected = userTable.getSelectionModel().getSelectedItem();
         if (selected == null) { showError("Выберите пользователя"); return; }
-        if (!confirm("Удалить пользователя ID=" + selected.get_id() + "?")) return;
+        if (!confirm("Удалить пользователя ID=" + selected.getId() + "?")) return;
         try {
-            userService.delete(selected.get_id());
+            userService.delete(selected.getId());
             loadUsers();
         } catch (Exception e) { showError(e.getMessage()); }
     }
@@ -329,7 +329,7 @@ public class MainController {
     @FXML
     private void onPutParcel() {
         try {
-            List<String> addresses = cellService.get_all_addresses();
+            List<String> addresses = cellService.getAllAddresses();
             if (addresses.isEmpty()) { showError("Нет ни одного постамата"); return; }
 
             FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/ru/mirea/postamat/parcel-dialog.fxml"));
@@ -362,8 +362,8 @@ public class MainController {
         String code = dlg.showAndWait().orElse(null);
         if (code == null || code.isBlank()) return;
         try {
-            Parcel p = parcelService.take_parcel(code.trim());
-            showInfo("Посылка выдана. ID: " + p.get_id());
+            Parcel p = parcelService.takeParcel(code.trim());
+            showInfo("Посылка выдана. ID: " + p.getId());
             refreshAll();
         } catch (Exception e) { showError(e.getMessage()); }
     }
@@ -378,7 +378,7 @@ public class MainController {
         File f = fc.showSaveDialog(cellTable.getScene().getWindow());
         if (f == null) return;
         try {
-            ExcelExport.export_cells(cellData, f.getAbsolutePath());
+            ExcelExport.exportCells(cellData, f.getAbsolutePath());
             showInfo("Экспортировано в " + f.getAbsolutePath());
         } catch (Exception e) { showError(e.getMessage()); }
     }
@@ -390,7 +390,7 @@ public class MainController {
         File f = fc.showSaveDialog(cellTable.getScene().getWindow());
         if (f == null) return;
         try {
-            CsvExport.export_cells(cellData, f.getAbsolutePath());
+            CsvExport.exportCells(cellData, f.getAbsolutePath());
             showInfo("Экспортировано в " + f.getAbsolutePath());
         } catch (Exception e) { showError(e.getMessage()); }
     }
@@ -407,7 +407,7 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(MainController.class.getResource("/ru/mirea/postamat/login.fxml"));
             Parent root = loader.load();
-            MainApp.setRoot(root, "Постаматы — Вход");
+            MainApp.setRoot(root, "Точно не озон");
         } catch (Exception e) { showError(e.getMessage()); }
     }
 

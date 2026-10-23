@@ -41,7 +41,7 @@ public final class Db {
 
     private Db() {}
 
-    public static Connection get_conn() throws SQLException {
+    public static Connection getConn() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

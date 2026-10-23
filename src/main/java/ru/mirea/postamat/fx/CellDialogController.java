@@ -25,10 +25,10 @@ public class CellDialogController {
 
     public void setCell(Cell c) {
         this.cell = c;
-        addressField.setText(c.get_locker_address() == null ? "" : c.get_locker_address());
-        numberField.setText(String.valueOf(c.get_cell_number()));
-        sizeBox.setValue(c.get_size_type());
-        statusBox.setValue(c.get_status());
+        addressField.setText(c.getLockerAddress() == null ? "" : c.getLockerAddress());
+        numberField.setText(String.valueOf(c.getCellNumber()));
+        sizeBox.setValue(c.getSizeType());
+        statusBox.setValue(c.getStatus());
     }
 
     public boolean isSaved() { return saved; }
@@ -51,10 +51,10 @@ public class CellDialogController {
             if (sizeBox.getValue() == null) throw new IllegalArgumentException("Выберите размер");
             if (statusBox.getValue() == null) throw new IllegalArgumentException("Выберите статус");
 
-            cell.set_locker_address(addr.trim());
-            cell.set_cell_number(num);
-            cell.set_size_type(sizeBox.getValue());
-            cell.set_status(statusBox.getValue());
+            cell.setLockerAddress(addr.trim());
+            cell.setCellNumber(num);
+            cell.setSizeType(sizeBox.getValue());
+            cell.setStatus(statusBox.getValue());
 
             saved = true;
             ((Stage) addressField.getScene().getWindow()).close();

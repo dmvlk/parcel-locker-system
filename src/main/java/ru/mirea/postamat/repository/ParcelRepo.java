@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface ParcelRepo {
 
-    List<Parcel> get_all();
-    Parcel get_by_id(int id);
+    List<Parcel> getAll();
+    Parcel getById(int id);
     void save(Parcel parcel);
     void update(Parcel parcel);
     void delete(int id);
 
-    Parcel get_by_code(String code);
-    boolean code_exists(String code);
+    Parcel getByCode(String code);
+    boolean codeExists(String code);
 }

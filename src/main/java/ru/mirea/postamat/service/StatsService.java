@@ -15,23 +15,23 @@ public class StatsService {
     }
 
     public String buildReport() {
-        List<User> users = userRepo.get_all();
-        List<Cell> cells = cellRepo.get_all();
-        List<Parcel> parcels = parcelRepo.get_all();
+        List<User> users = userRepo.getAll();
+        List<Cell> cells = cellRepo.getAll();
+        List<Parcel> parcels = parcelRepo.getAll();
 
         long totalCells = cells.size();
-        long free    = cells.stream().filter(c -> c.get_status() == CellStatus.FREE).count();
-        long occupied= cells.stream().filter(c -> c.get_status() == CellStatus.OCCUPIED).count();
-        long broken  = cells.stream().filter(c -> c.get_status() == CellStatus.NOT_WORKING).count();
+        long free = cells.stream().filter(c -> c.getStatus() == CellStatus.FREE).count();
+        long occupied= cells.stream().filter(c -> c.getStatus() == CellStatus.OCCUPIED).count();
+        long broken = cells.stream().filter(c -> c.getStatus() == CellStatus.NOT_WORKING).count();
 
         double occupancyPercent = totalCells == 0 ? 0 : 100.0 * occupied / totalCells;
 
-        Map<String, Long> cellsByAddress = cells.stream().collect(Collectors.groupingBy(Cell::get_locker_address, Collectors.counting()));
+        Map<String, Long> cellsByAddress = cells.stream().collect(Collectors.groupingBy(Cell::getLockerAddress, Collectors.counting()));
 
-        Map<SizeType, Long> cellsBySize = cells.stream().collect(Collectors.groupingBy(Cell::get_size_type, Collectors.counting()));
+        Map<SizeType, Long> cellsBySize = cells.stream().collect(Collectors.groupingBy(Cell::getSizeType, Collectors.counting()));
 
-        long waiting = parcels.stream().filter(p -> p.get_status() == ParcelStatus.WAITING).count();
-        long picked = parcels.stream().filter(p -> p.get_status() == ParcelStatus.PICKED_UP).count();
+        long waiting = parcels.stream().filter(p -> p.getStatus() == ParcelStatus.WAITING).count();
+        long picked = parcels.stream().filter(p -> p.getStatus() == ParcelStatus.PICKED_UP).count();
 
         Optional<String> maxAddress = cellsByAddress.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
 

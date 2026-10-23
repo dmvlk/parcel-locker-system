@@ -36,8 +36,7 @@ public final class PasswordUtil {
     private static byte[] pbkdf2(char[] pwd, byte[] salt, int iters) {
         try {
             PBEKeySpec spec = new PBEKeySpec(pwd, salt, iters, KEY_LEN);
-            return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
-                    .generateSecret(spec).getEncoded();
+            return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).getEncoded();
         } catch (Exception e) { throw new IllegalStateException(e); }
     }
 

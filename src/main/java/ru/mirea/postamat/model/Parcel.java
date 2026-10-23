@@ -6,76 +6,75 @@ public class Parcel {
 
     private int id;
     private String code;
-    private int user_id;
-    private Integer cell_id;
+    private int userId;
+    private Integer cellId;
     private ParcelStatus status;
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     public Parcel() {}
 
-    public Parcel(String code, int user_id, Integer cell_id, ParcelStatus status) {
+    public Parcel(String code, int userId, Integer cellId, ParcelStatus status) {
         this.code = code;
-        this.user_id = user_id;
-        this.cell_id = cell_id;
+        this.userId = userId;
+        this.cellId = cellId;
         this.status = status;
     }
 
-    public Parcel(int id, String code, int user_id, Integer cell_id,
-                  ParcelStatus status, LocalDateTime created_at) {
+    public Parcel(int id, String code, int userId, Integer cellId, ParcelStatus status, LocalDateTime createdAt) {
         this.id = id;
         this.code = code;
-        this.user_id = user_id;
-        this.cell_id = cell_id;
+        this.userId = userId;
+        this.cellId = cellId;
         this.status = status;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
-    public int get_id() {
+    public int getId() {
         return id;
     }
 
-    public void set_id(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String get_code() {
+    public String getCode() {
         return code;
     }
 
-    public void set_code(String code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public int get_user_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void set_user_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Integer get_cell_id() {
-        return cell_id;
+    public Integer getCellId() {
+        return cellId;
     }
 
-    public void set_cell_id(Integer cell_id) {
-        this.cell_id = cell_id;
+    public void setCellId(Integer cellId) {
+        this.cellId = cellId;
     }
 
-    public ParcelStatus get_status() {
+    public ParcelStatus getStatus() {
         return status;
     }
 
-    public void set_status(ParcelStatus status) {
+    public void setStatus(ParcelStatus status) {
         this.status = status;
     }
 
-    public LocalDateTime get_created_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void set_created_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
@@ -83,10 +82,10 @@ public class Parcel {
         return "Parcel{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
-                ", user_id=" + user_id +
-                ", cell_id=" + cell_id +
+                ", user_id=" + userId +
+                ", cell_id=" + cellId +
                 ", status=" + status +
-                ", created_at=" + created_at +
+                ", created_at=" + createdAt +
                 '}';
     }
 }

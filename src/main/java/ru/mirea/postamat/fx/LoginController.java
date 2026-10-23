@@ -23,7 +23,7 @@ public class LoginController {
             User u = authService.login(phoneField.getText(), passwordField.getText());
             FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/ru/mirea/postamat/main.fxml"));
             Parent root = loader.load();
-            MainApp.setRoot(root, "Постаматы — " + u.get_full_name() + " (" + u.getRole() + ")");
+            MainApp.setRoot(root, "Точно не озон");
 
         } catch (Exception e) {
             e.printStackTrace();

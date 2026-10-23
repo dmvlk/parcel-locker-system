@@ -9,89 +9,89 @@ import ru.mirea.postamat.repository.CellRepo;
 import java.util.List;
 
 public class CellService {
-    private final CellRepo cell_repo;
-    public CellService(CellRepo cell_repo) {
-        this.cell_repo = cell_repo;
+    private final CellRepo cellRepo;
+    public CellService(CellRepo cellRepo) {
+        this.cellRepo = cellRepo;
     }
-    public List<Cell> get_all() {
-        return cell_repo.get_all();
+    public List<Cell> getAll() {
+        return cellRepo.getAll();
     }
-    public Cell get_by_id(int id) {
-        Cell cell = cell_repo.get_by_id(id);
+    public Cell getById(int id) {
+        Cell cell = cellRepo.getById(id);
         if (cell == null) {
             throw new NotFoundException("Ячейка с ID=" + id + " не найдена");
         }
         return cell;
     }
 
-    public void create(String locker_address, int cell_number, SizeType size_type, CellStatus status) {
+    public void create(String lockerAddress, int cellNumber, SizeType sizeType, CellStatus status) {
 
-        if (locker_address == null || locker_address.trim().isEmpty())
+        if (lockerAddress == null || lockerAddress.trim().isEmpty())
             throw new BusinessException("Адрес постамата не может быть пустым");
 
-        Cell cell = new Cell(locker_address.trim(), cell_number, size_type, status);
-        cell_repo.save(cell);
+        Cell cell = new Cell(lockerAddress.trim(), cellNumber, sizeType, status);
+        cellRepo.save(cell);
     }
 
-    public void update(int id, String locker_address, int cell_number, SizeType size_type, CellStatus status) {
-        if (locker_address == null || locker_address.trim().isEmpty())
+    public void update(int id, String lockerAddress, int cellNumber, SizeType sizeType, CellStatus status) {
+        if (lockerAddress == null || lockerAddress.trim().isEmpty())
             throw new BusinessException("Адрес постамата не может быть пустым");
 
-        Cell cell = get_by_id(id);
+        Cell cell = getById(id);
 
-        cell.set_locker_address(locker_address.trim());
-        cell.set_cell_number(cell_number);
-        cell.set_size_type(size_type);
-        cell.set_status(status);
+        cell.setLockerAddress(lockerAddress.trim());
+        cell.setCellNumber(cellNumber);
+        cell.setSizeType(sizeType);
+        cell.setStatus(status);
 
-        cell_repo.update(cell);
+        cellRepo.update(cell);
     }
 
     public void delete(int id) {
-        get_by_id(id);
-        cell_repo.delete(id);
+        getById(id);
+        cellRepo.delete(id);
     }
 
-    public List<Cell> search_by_address(String address) {
-        return cell_repo.get_by_address(address);
+    public List<Cell> searchByAddress(String address) {
+        return cellRepo.getByAddress(address);
     }
 
-    public List<String> get_all_addresses() {
-        return cell_repo.get_all_addresses();
+    public List<String> getAllAddresses() {
+        return cellRepo.getAllAddresses();
     }
 
-    public List<Cell> search_by_cell_number(int cell_number) {
-        return cell_repo.get_by_cell_number(cell_number);
+    public List<Cell> searchByCellNumber(int cell_number) {
+        return cellRepo.getByCellNumber(cell_number);
     }
 
-    public List<Cell> filter_by_status(CellStatus status) {
-        return cell_repo.filter_by_status(status);
+    public List<Cell> filterByStatus(CellStatus status) {
+        return cellRepo.filterByStatus(status);
     }
 
-    public List<Cell> filter_by_size(SizeType size) {
-        return cell_repo.filter_by_size(size);
+    public List<Cell> filterBySize(SizeType size) {
+        return cellRepo.filterBySize(size);
     }
 
-    public List<Cell> sort_by_address() {
-        return cell_repo.sort_by_address();
+    public List<Cell> sortByAddress() {
+        return cellRepo.sortByAddress();
     }
 
-    public List<Cell> sort_by_cell_number() {
-        return cell_repo.sort_by_cell_number();
+    public List<Cell> sortByCellNumber() {
+        return cellRepo.sortByCellNumber();
     }
 
-    public int[] get_stats() {
-        List<Cell> all = cell_repo.get_all();
+    public int[] getStats() {
+        List<Cell> all = cellRepo.getAll();
         int total = all.size();
-        int free = 0, occupied = 0, not_working = 0;
+        int free = 0, occupied = 0, notWorking = 0;
 
         for (Cell c : all) {
-            switch (c.get_status()) {
+            switch (c.getStatus()) {
                 case FREE -> free++;
                 case OCCUPIED -> occupied++;
-                case NOT_WORKING -> not_working++;
+                case NOT_WORKING -> notWorking++;
             }
         }
-        return new int[]{total, free, occupied, not_working};
+        return new int[]{total, free, occupied, notWorking};
     }
 }

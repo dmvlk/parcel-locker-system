@@ -12,9 +12,9 @@ public class ExcelExport {
 
     private ExcelExport() {}
 
-    public static void export_cells(List<Cell> cells, String file_path) throws Exception {
+    public static void exportCells(List<Cell> cells, String lockerAddress) throws Exception {
         try (Workbook wb = new XSSFWorkbook();
-             FileOutputStream out = new FileOutputStream(file_path)) {
+             FileOutputStream out = new FileOutputStream(lockerAddress)) {
 
             Sheet sheet = wb.createSheet("Ячейки");
 
@@ -25,14 +25,14 @@ public class ExcelExport {
             header.createCell(3).setCellValue("Размер");
             header.createCell(4).setCellValue("Статус");
 
-            int row_num = 1;
+            int rowNum = 1;
             for (Cell c : cells) {
-                Row row = sheet.createRow(row_num++);
-                row.createCell(0).setCellValue(c.get_id());
-                row.createCell(1).setCellValue(c.get_locker_address());
-                row.createCell(2).setCellValue(c.get_cell_number());
-                row.createCell(3).setCellValue(c.get_size_type().name());
-                row.createCell(4).setCellValue(c.get_status().name());
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(c.getId());
+                row.createCell(1).setCellValue(c.getLockerAddress());
+                row.createCell(2).setCellValue(c.getCellNumber());
+                row.createCell(3).setCellValue(c.getSizeType().name());
+                row.createCell(4).setCellValue(c.getStatus().name());
             }
 
             wb.write(out);

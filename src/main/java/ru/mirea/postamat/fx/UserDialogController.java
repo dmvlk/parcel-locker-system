@@ -30,9 +30,9 @@ public class UserDialogController {
         this.user = u;
         this.isNew = isNew;
 
-        fullNameField.setText(u.get_full_name() == null ? "" : u.get_full_name());
-        phoneField.setText(u.get_phone() == null ? "" : u.get_phone());
-        emailField.setText(u.get_email() == null ? "" : u.get_email());
+        fullNameField.setText(u.getFullName() == null ? "" : u.getFullName());
+        phoneField.setText(u.getPhone() == null ? "" : u.getPhone());
+        emailField.setText(u.getEmail() == null ? "" : u.getEmail());
         roleBox.setValue(u.getRole() == null ? Role.USER : u.getRole());
 
         if (isNew) {
@@ -81,9 +81,9 @@ public class UserDialogController {
             Role role = roleBox.getValue();
             if (role == null) throw new IllegalArgumentException("Выберите роль");
 
-            user.set_full_name(name.trim());
-            user.set_phone(phone);
-            user.set_email(email);
+            user.setFullName(name.trim());
+            user.setPhone(phone);
+            user.setEmail(email);
             user.setRole(role);
             user.setPasswordHash((pwd == null || pwd.isBlank()) ? null : pwd);
 

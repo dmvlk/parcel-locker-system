@@ -16,10 +16,10 @@ public class AuthService {
         if (password == null || password.isBlank())
             throw new BusinessException("Введите пароль");
 
-        User u = userRepo.get_by_phone_exact(phone.trim());
+        User u = userRepo.getByPhoneExact(phone.trim());
         if (u == null)
             throw new BusinessException("Пользователь не найден");
-        if (!u.has_password())
+        if (!u.hasPassword())
             throw new BusinessException("Пароль не задан. Обратитесь к администратору");
         if (!PasswordUtil.verify(password, u.getPasswordHash()))
             throw new BusinessException("Неверный пароль");

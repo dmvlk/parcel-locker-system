@@ -14,18 +14,18 @@ public class UserService {
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\+?[0-9]{10,15}$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
-    private final UserRepo user_repo;
+    private final UserRepo userRepo;
 
-    public UserService(UserRepo user_repo) {
-        this.user_repo = user_repo;
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
-    public List<User> get_all() {
-        return user_repo.get_all();
+    public List<User> getAll() {
+        return userRepo.getAll();
     }
 
-    public User get_by_id(int id) {
-        User user = user_repo.get_by_id(id);
+    public User getById(int id) {
+        User user = userRepo.getById(id);
         if (user == null)
             throw new NotFoundException("Пользователь с ID=" + id + " не найден");
         return user;
@@ -38,9 +38,9 @@ public class UserService {
         String em   = validate_email(email);
         validate_password(password, true);
 
-        if (user_repo.phone_exists(ph))
+        if (userRepo.phoneExists(ph))
             throw new BusinessException("Пользователь с телефоном " + ph + " уже существует");
-        if (em != null && user_repo.email_exists(em))
+        if (em != null && userRepo.emailExists(em))
             throw new BusinessException("Пользователь с email " + em + " уже существует");
 
         User user = new User(
@@ -50,7 +50,7 @@ public class UserService {
                 PasswordUtil.hash(password),
                 role == null ? Role.USER : role
         );
-        user_repo.save(user);
+        userRepo.save(user);
     }
 
     public void create(String full_name, String phone, String email, String password) {
@@ -60,27 +60,27 @@ public class UserService {
     public void update(int id, String full_name, String phone, String email,
                        String new_password, Role role) {
 
-        User user = get_by_id(id);
+        User user = getById(id);
 
         String name = validate_full_name(full_name);
         String ph   = validate_phone(phone);
         String em   = validate_email(email);
 
-        if (user_repo.phone_exists_for_other(ph, id))
+        if (userRepo.phoneExistsForOther(ph, id))
             throw new BusinessException("Телефон " + ph + " уже занят другим пользователем");
-        if (em != null && user_repo.email_exists_for_other(em, id))
+        if (em != null && userRepo.emailExistsForOther(em, id))
             throw new BusinessException("Email " + em + " уже занят другим пользователем");
 
-        user.set_full_name(name);
-        user.set_phone(ph);
-        user.set_email(em);
+        user.setFullName(name);
+        user.setPhone(ph);
+        user.setEmail(em);
 
         if (new_password != null && !new_password.isBlank()) {
             validate_password(new_password, false);
             user.setPasswordHash(PasswordUtil.hash(new_password));
         }
-        if (role != null) user.set_role(role);
-        user_repo.update(user);
+        if (role != null) user.setRole(role);
+        userRepo.update(user);
     }
 
     public void update(int id, String full_name, String phone, String email) {
@@ -88,10 +88,10 @@ public class UserService {
     }
 
     public void delete(int id) {
-        User user = get_by_id(id);
+        User user = getById(id);
 
         if (user.getRole() == Role.ADMIN) {
-            long admins = user_repo.get_all().stream()
+            long admins = userRepo.getAll().stream()
                     .filter(u -> u.getRole() == Role.ADMIN)
                     .count();
             if (admins <= 1) {
@@ -99,19 +99,19 @@ public class UserService {
                         "Нельзя удалить последнего администратора");
             }
         }
-        user_repo.delete(id);
+        userRepo.delete(id);
     }
 
     public List<User> search_by_phone(String phone) {
-        return user_repo.get_by_phone(phone);
+        return userRepo.getByPhone(phone);
     }
 
     public List<User> search_by_full_name(String full_name) {
-        return user_repo.get_by_full_name(full_name);
+        return userRepo.getByFullName(full_name);
     }
 
     public List<User> search_by_email(String email) {
-        return user_repo.get_by_email(email);
+        return userRepo.getByEmail(email);
     }
 
     private String validate_full_name(String full_name) {

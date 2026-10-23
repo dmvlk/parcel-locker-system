@@ -48,23 +48,23 @@ public class ParcelDialogController {
         statusBox.setItems(FXCollections.observableArrayList(ParcelStatus.values()));
         sendSizeBox.setItems(FXCollections.observableArrayList(SizeType.values()));
 
-        List<User> users = userRepo.get_all();
+        List<User> users = userRepo.getAll();
         userBox.setItems(FXCollections.observableArrayList(users));
         userBox.setConverter(new StringConverter<>() {
             @Override public String toString(User u) {
                 if (u == null) return "";
-                return u.get_full_name() + " (" + u.get_phone() + ")";
+                return u.getFullName() + " (" + u.getPhone() + ")";
             }
             @Override public User fromString(String s) { return null; }
         });
 
-        List<Cell> cells = cellRepo.get_all();
+        List<Cell> cells = cellRepo.getAll();
         cellBox.setItems(FXCollections.observableArrayList(cells));
         cellBox.setConverter(new StringConverter<>() {
             @Override public String toString(Cell c) {
                 if (c == null) return "";
-                return c.get_locker_address() + ", №" + c.get_cell_number()
-                        + " (" + c.get_size_type() + "/" + c.get_status() + ")";
+                return c.getLockerAddress() + ", №" + c.getCellNumber()
+                        + " (" + c.getSizeType() + "/" + c.getStatus() + ")";
             }
             @Override public Cell fromString(String s) { return null; }
         });
@@ -94,21 +94,21 @@ public class ParcelDialogController {
         if (editForm != null) { editForm.setVisible(true);  editForm.setManaged(true); }
         if (sendForm != null) { sendForm.setVisible(false); sendForm.setManaged(false); }
 
-        codeField.setText(p.get_code() == null ? "" : p.get_code());
+        codeField.setText(p.getCode() == null ? "" : p.getCode());
 
-        if (p.get_user_id() > 0) {
+        if (p.getUserId() > 0) {
             userBox.getItems().stream()
-                    .filter(u -> u.get_id() == p.get_user_id())
+                    .filter(u -> u.getId() == p.getUserId())
                     .findFirst()
                     .ifPresent(userBox::setValue);
         }
-        if (p.get_cell_id() != null) {
+        if (p.getCellId() != null) {
             cellBox.getItems().stream()
-                    .filter(c -> c.get_id() == p.get_cell_id())
+                    .filter(c -> c.getId() == p.getCellId())
                     .findFirst()
                     .ifPresent(cellBox::setValue);
         }
-        statusBox.setValue(p.get_status() == null ? ParcelStatus.WAITING : p.get_status());
+        statusBox.setValue(p.getStatus() == null ? ParcelStatus.WAITING : p.getStatus());
 
         if (isNew) codeField.setPromptText("5 цифр, напр. 12345");
     }
@@ -173,10 +173,10 @@ public class ParcelDialogController {
             if (status == ParcelStatus.WAITING && cell == null)
                 throw new IllegalArgumentException("Для статуса WAITING нужно выбрать ячейку");
 
-            parcel.set_code(code);
-            parcel.set_user_id(user.get_id());
-            parcel.set_cell_id(cell == null ? null : cell.get_id());
-            parcel.set_status(status);
+            parcel.setCode(code);
+            parcel.setUserId(user.getId());
+            parcel.setCellId(cell == null ? null : cell.getId());
+            parcel.setStatus(status);
 
             saved = true;
             ((Stage) codeField.getScene().getWindow()).close();

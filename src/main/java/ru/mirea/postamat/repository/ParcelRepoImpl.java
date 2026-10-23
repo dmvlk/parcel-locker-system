@@ -9,12 +9,12 @@ import java.util.List;
 
 public class ParcelRepoImpl implements ParcelRepo {
     @Override
-    public List<Parcel> get_all() {
+    public List<Parcel> getAll() {
         List<Parcel> parcels = new ArrayList<>();
         String sql = "SELECT id, code, user_id, cell_id, status, created_at " +
                 "FROM parcels ORDER BY id";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -28,10 +28,10 @@ public class ParcelRepoImpl implements ParcelRepo {
     }
 
     @Override
-    public Parcel get_by_id(int id) {
+    public Parcel getById(int id) {
         String sql = "SELECT id, code, user_id, cell_id, status, created_at " + "FROM parcels WHERE id = ?";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
@@ -48,25 +48,25 @@ public class ParcelRepoImpl implements ParcelRepo {
     public void save(Parcel parcel) {
         String sql = "INSERT INTO parcels (code, user_id, cell_id, status) " + "VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, parcel.get_code());
-            ps.setInt(2, parcel.get_user_id());
+            ps.setString(1, parcel.getCode());
+            ps.setInt(2, parcel.getUserId());
 
-            if (parcel.get_cell_id() == null) {
+            if (parcel.getCellId() == null) {
                 ps.setNull(3, Types.INTEGER);
             } else {
-                ps.setInt(3, parcel.get_cell_id());
+                ps.setInt(3, parcel.getCellId());
             }
 
-            ps.setString(4, parcel.get_status().name());
+            ps.setString(4, parcel.getStatus().name());
 
             ps.executeUpdate();
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    parcel.set_id(keys.getInt(1));
+                    parcel.setId(keys.getInt(1));
                 }
             }
         } catch (SQLException e) {
@@ -78,19 +78,19 @@ public class ParcelRepoImpl implements ParcelRepo {
     public void update(Parcel parcel) {
         String sql = "UPDATE parcels SET code = ?, user_id = ?, cell_id = ?, status = ? " + "WHERE id = ?";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, parcel.get_code());
-            ps.setInt(2, parcel.get_user_id());
+            ps.setString(1, parcel.getCode());
+            ps.setInt(2, parcel.getUserId());
 
-            if (parcel.get_cell_id() == null) {
+            if (parcel.getCellId() == null) {
                 ps.setNull(3, Types.INTEGER);
             } else {
-                ps.setInt(3, parcel.get_cell_id());
+                ps.setInt(3, parcel.getCellId());
             }
 
-            ps.setString(4, parcel.get_status().name());
-            ps.setInt(5, parcel.get_id());
+            ps.setString(4, parcel.getStatus().name());
+            ps.setInt(5, parcel.getId());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -101,7 +101,7 @@ public class ParcelRepoImpl implements ParcelRepo {
     @Override
     public void delete(int id) {
         String sql = "DELETE FROM parcels WHERE id = ?";
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
@@ -112,10 +112,10 @@ public class ParcelRepoImpl implements ParcelRepo {
     }
 
     @Override
-    public Parcel get_by_code(String code) {
+    public Parcel getByCode(String code) {
         String sql = "SELECT id, code, user_id, cell_id, status, created_at " + "FROM parcels WHERE code = ?";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, code);
@@ -129,10 +129,10 @@ public class ParcelRepoImpl implements ParcelRepo {
     }
 
     @Override
-    public boolean code_exists(String code) {
+    public boolean codeExists(String code) {
         String sql = "SELECT 1 FROM parcels WHERE code = ?";
 
-        try (Connection conn = Db.get_conn();
+        try (Connection conn = Db.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, code);

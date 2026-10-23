@@ -7,21 +7,21 @@ import java.util.List;
 
 public interface CellRepo {
 
-    List<Cell> get_all();
-    Cell get_by_id(int id);
+    List<Cell> getAll();
+    Cell getById(int id);
     void save(Cell cell);
     void update(Cell cell);
     void delete(int id);
 
-    List<Cell> get_by_address(String address);
-    List<String> get_all_addresses();
-    List<Cell> get_by_cell_number(int cell_number);
+    List<Cell> getByAddress(String address);
+    List<String> getAllAddresses();
+    List<Cell> getByCellNumber(int cellNumber);
 
-    List<Cell> filter_by_status(CellStatus status);
-    List<Cell> filter_by_size(SizeType size);
+    List<Cell> filterByStatus(CellStatus status);
+    List<Cell> filterBySize(SizeType size);
 
-    List<Cell> sort_by_address();
-    List<Cell> sort_by_cell_number();
+    List<Cell> sortByAddress();
+    List<Cell> sortByCellNumber();
 
-    Cell find_free_cell(String locker_address, SizeType size);
+    Cell findFreeCell(String lockerAddress, SizeType size);
 }

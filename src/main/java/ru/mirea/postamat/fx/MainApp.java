@@ -14,16 +14,14 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
 
-        FXMLLoader loader = new FXMLLoader(
-                MainApp.class.getResource("/ru/mirea/postamat/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/ru/mirea/postamat/login.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 1200, 800);
-        scene.getStylesheets().add(
-                MainApp.class.getResource("/ru/mirea/postamat/css/app.css").toExternalForm());
+        scene.getStylesheets().add(MainApp.class.getResource("/ru/mirea/postamat/css/app.css").toExternalForm());
 
         stage.setScene(scene);
-        stage.setTitle("Постаматы - Вход");
+        stage.setTitle("Точно не озон");
         stage.setMaximized(true);
         stage.show();
     }
